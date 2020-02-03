@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  devise_for :users, controllers: { sessions: :sessions },
+                       path_names: { sign_in: :login }
+  resource :user, only: [:new, :create, :index, :show]
+  root to: "users#index"
+  resources :questions do
+    resources :answers
+  end
 end
